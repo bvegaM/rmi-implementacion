@@ -25,7 +25,7 @@ public class ServerRMI {
     public static void main(String[] args) {
         try {
             Registry myRegistry = LocateRegistry.createRegistry(1234);
-            myRegistry.bind("Ejemplo de un RMI", new ServerImplements());
+            myRegistry.bind("rmiExample", new ServerImplements());
             System.err.println("Server ON!");
         } catch (RemoteException ex) {
             Logger.getLogger(ServerRMI.class.getName()).log(Level.SEVERE, null, ex);
