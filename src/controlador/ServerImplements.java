@@ -5,22 +5,50 @@
  */
 package controlador;
 
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import modelo.Episodio;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 /**
  *
  * @author bvegam
  */
 public class ServerImplements extends UnicastRemoteObject implements RMI{
+    
 
     public ServerImplements() throws RemoteException {
         super();
     }
 
     @Override
-    public int sumar(int num1, int num2) throws RemoteException {
-        return num1+num2;
+    public String obtenerEpisodio(int id) throws RemoteException {
+        try {
+            CloseableHttpClient cliente = HttpClients.createDefault();
+            HttpGet request = new HttpGet("https://rickandmortyapi.com/api/episode/"+id);
+            CloseableHttpResponse response = cliente.execute(request);
+            HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    // return it as a String
+                    String result = EntityUtils.toString(entity);
+                    Gson g = new Gson();  
+                    Episodio episodio = g.fromJson(result, Episodio.class);
+                    System.out.println(episodio.getId());
+                    return episodio.getName();
+                }
+        } catch (IOException ex) {
+            Logger.getLogger(ServerImplements.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "error";
     }
     
 }
