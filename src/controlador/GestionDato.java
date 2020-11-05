@@ -31,7 +31,7 @@ public class GestionDato {
         }
     }
     
-    public int sumar(int num1,int num2) throws RemoteException{
-        return this.remoteInterface.sumar(num1, num2);
+    public String obtenerEpisodio(int id) throws RemoteException{
+        return this.remoteInterface.obtenerEpisodio(id);
     }
 }

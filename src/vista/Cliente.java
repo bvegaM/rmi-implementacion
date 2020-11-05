@@ -12,6 +12,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,13 +27,11 @@ public class Cliente {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String numeroUno = JOptionPane.showInputDialog("Ingrese el número uno");
-        String numeroDos = JOptionPane.showInputDialog("Ingrese el numero dos");
-        int num1 = Integer.parseInt(numeroUno);
-        int num2 = Integer.parseInt(numeroDos);
+        String codigo = JOptionPane.showInputDialog("Ingrese el id del episodio");
+        int id=Integer.parseInt(codigo);
         GestionDato gestion = new GestionDato("127.0.0.1",1234);
         try {
-            System.out.println(gestion.sumar(num1, num2));
+            JOptionPane.showMessageDialog(null,"El episodio es: "+ gestion.obtenerEpisodio(id));
         } catch (RemoteException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
