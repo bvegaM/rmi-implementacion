@@ -13,6 +13,6 @@ import java.rmi.RemoteException;
  * @author bvegam
  */
 public interface RMI extends Remote{
-    public int sumar(int num1, int num2) throws RemoteException;
+    public String obtenerEpisodio(int id) throws RemoteException;
     
 }
