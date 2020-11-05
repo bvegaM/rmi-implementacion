@@ -36,15 +36,21 @@ public class ServerImplements extends UnicastRemoteObject implements RMI{
             CloseableHttpClient cliente = HttpClients.createDefault();
             HttpGet request = new HttpGet("https://rickandmortyapi.com/api/episode/"+id);
             CloseableHttpResponse response = cliente.execute(request);
-            HttpEntity entity = response.getEntity();
+            if(response.getStatusLine().getStatusCode()==200){
+                HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     // return it as a String
                     String result = EntityUtils.toString(entity);
                     Gson g = new Gson();  
                     Episodio episodio = g.fromJson(result, Episodio.class);
-                    System.out.println(episodio.getId());
                     return episodio.getName();
+                }else{
+                    return "No existe ese episodio";
                 }
+            }else{
+                return "Error al obtener episodio";
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(ServerImplements.class.getName()).log(Level.SEVERE, null, ex);
         }
