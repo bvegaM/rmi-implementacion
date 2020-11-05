@@ -31,7 +31,7 @@ public class Cliente {
         int id=Integer.parseInt(codigo);
         GestionDato gestion = new GestionDato("127.0.0.1",1234);
         try {
-            JOptionPane.showMessageDialog(null,"El episodio es: "+ gestion.obtenerEpisodio(id));
+            JOptionPane.showMessageDialog(null,gestion.obtenerEpisodio(id));
         } catch (RemoteException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
