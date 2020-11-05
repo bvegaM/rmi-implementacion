@@ -43,14 +43,13 @@ public class ServerImplements extends UnicastRemoteObject implements RMI{
                     String result = EntityUtils.toString(entity);
                     Gson g = new Gson();  
                     Episodio episodio = g.fromJson(result, Episodio.class);
-                    return episodio.getName();
+                    return "El episodio es: "+ episodio.getName();
                 }else{
                     return "No existe ese episodio";
                 }
             }else{
                 return "Error al obtener episodio";
             }
-            
         } catch (IOException ex) {
             Logger.getLogger(ServerImplements.class.getName()).log(Level.SEVERE, null, ex);
         }
